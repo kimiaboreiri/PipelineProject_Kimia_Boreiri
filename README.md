@@ -64,7 +64,14 @@ For data test I used head to extract a subset of reads
 
 
 
+
 wget https://www.ncbi.nlm.nih.gov/sra/SRX2896360
+
+
 wget https://www.ncbi.nlm.nih.gov/sra/SRX2896363
+
+
 wget https://www.ncbi.nlm.nih.gov/sra/SRX2896374
+
+
 wget https://www.ncbi.nlm.nih.gov/sra/SRX2896375
