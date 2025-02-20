@@ -58,3 +58,13 @@ sudo apt intall kallisto bowtie2 spades blast+ sra-toolkit
 
 
  
+##Download the SRA Datasets
+using wget or prefetch(sra-toolkit) to download all raw sequencing file:
+For data test I used head to extract a subset of reads
+
+
+
+wget https://www.ncbi.nlm.nih.gov/sra/SRX2896360
+wget https://www.ncbi.nlm.nih.gov/sra/SRX2896363
+wget https://www.ncbi.nlm.nih.gov/sra/SRX2896374
+wget https://www.ncbi.nlm.nih.gov/sra/SRX2896375
