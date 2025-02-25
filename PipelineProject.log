@@ -1,0 +1,26 @@
+The NC_006273.2 genome has 169 CDS.
+
+Kallisto index successfully built.
+
+
+sample	condition	min_tpm	med_tpm	mean_tpm	max_tpm
+SRR5660030	2dpi	0.00	1873.57	5917.16	76823.10
+SRR5660033	6dpi	0.00	1976.09	5917.16	177444.00
+SRR5660044	2dpi	0.00	1904.75	5917.16	222836.00
+SRR5660045	6dpi	0.00	1087.04	5917.16	401009.00
+The HCMV genome NC_006273.2 has 169 CDS.
+
+
+## Bowtie2 index successfully created ##
+
+## Bowtie2 read mapping result ##
+Donor 1 (2dpi) had 4518574 read pairs before Bowtie2 filtering and 3025251 read pairs after.
+Donor 1 (6dpi) had 4009060 read pairs before Bowtie2 filtering and 2253907 read pairs after.
+Donor 3 (2dpi) had 5460516 read pairs before Bowtie2 filtering and 3345658 read pairs after.
+Donor 3 (6dpi) had 4953778 read pairs before Bowtie2 filtering and 2236559 read pairs after.
+
+## Running SPAdes Assemblies ##
+
+SPAdes command for Donor_1: spades.py --only-assembler -k 77 -o /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/spades_output/Donor_1 -1 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660030_filtered_1.fastq -2 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660030_filtered_2.fastq -1 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660033_filtered_1.fastq -2 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660033_filtered_2.fastq
+
+SPAdes command for Donor_3: spades.py --only-assembler -k 77 -o /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/spades_output/Donor_3 -1 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660044_filtered_1.fastq -2 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660044_filtered_2.fastq -1 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660045_filtered_1.fastq -2 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660045_filtered_2.fastq
