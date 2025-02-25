@@ -303,3 +303,32 @@ for donor, samples in donors.items():
         log.write(f"\nSPAdes command for {donor}: {' '.join(spades_cmd)}\n")
 
 print("SPAdes processing completed.")
+
+
+##define path for blast
+base_dir = os.path.expanduser("~/PipelineProject_Kimia_Boreiri/output")
+blast_db_dir = os.path.join(base_dir, "blast_db")  # Directory for BLAST dataset
+os.makedirs(blast_db_dir, exist_ok=True)  # make sure if directory exist
+
+
+##define file name 
+file_name = os.path.join(spades_output_dir,"Donor_1", "contigs.fasta")
+db_name = os.path.join(blast_db_dir, "blast_results")
+log_file = os.path.join(base_dir, "PipelineProject.log")  #log file
+
+makeblast_command = f"makeblastdb -in {file_name} -out {db_name} -title {db_name} -dbtype nucl"
+
+
+
+subprocess.run(makeblast_command, shell=True, check=True)
+print("BLAST database created successfully.")
+
+    # Log success
+log_file = os.path.join(base_dir, "PipelineProject.log")
+with open(log_file, "a") as log:
+    log.write("\n## BLAST Database Created Successfully ##\n")
+
+
+
+
+
