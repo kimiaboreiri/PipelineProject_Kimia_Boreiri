@@ -181,6 +181,12 @@ Spades is bioinfrmatics tools that revieve the fastq 1 and fastq 2 and do assemb
 
 
 ## BLAST
+https://github.com/ncbi/blast_plus_docs
+
+Bast is a bioinformatics tool which indentify the closest viral strains to the assembled transcriptomic data.
+
+
+this tool extract the longest config from Spades assembly then create a BLAST database and then run BLAST after that the result filtered and only keep the best one 
 
 
 
