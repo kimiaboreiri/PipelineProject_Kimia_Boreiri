@@ -8,7 +8,7 @@ The main goal is to -> compare transcriptomes at 2 and 6 days post-infection.
 
 
 
-##Project Workflow
+## Project Workflow
 
 The pipline folowing these steps:
 
@@ -29,36 +29,40 @@ The pipline folowing these steps:
 7- Identify closest viral strans -> BLAST
 
 
-##Required Tools
+## Required Tools
 
 The following tools are used in this pipeline:
 
 
-"Python" 
+## "Python" 
 
 
-"Kallisto" for transcript quantification
+## "Kallisto" for transcript quantification
 
 
-"sleuth" for differential expression analysis
+## "sleuth" for differential expression analysis
 
 
-"Bowtie2" for read filtering
+## "Bowtie2" for read filtering
 
 
-"SPAdes" fo sequence assembly
+## "SPAdes" fo sequence assembly
 
 
-"BLAST" for starin identification
+## "BLAST" for starin identification
 
-#Installation
+## Installation
 '''bash
-pip intall biooython pandas numpy
-sudo apt intall kallisto bowtie2 spades blast+ sra-toolkit
+
+
+              pip intall biooython pandas numpy
+              
+              
+        sudo apt intall kallisto bowtie2 spades blast+ sra-toolkit
 
 
  
-##Download the SRA Datasets
+## Download the SRA Datasets
 using wget or prefetch(sra-toolkit) to download all raw sequencing file:
 For data test I used head to extract a subset of reads
 
@@ -78,8 +82,12 @@ wget https://www.ncbi.nlm.nih.gov/sra/SRX2896375
 
 
 #After downloding all the input fikes and the unzip them I got gbff file by accession number and write a code to make a .log file to store the result pr rerror in there
+## log.file
 
-log_file = os.path.join(base_dir, "PipelineProject.log")
+
+         log_file = os.path.join(base_dir, "PipelineProject.log")
+
+
 
 #after getting all the required files then everything is ready to start the extract the CDS part from sequnecs
 
@@ -87,7 +95,9 @@ log_file = os.path.join(base_dir, "PipelineProject.log")
 
 then show a line about the number of CDS in HCMV genome in log file
 
-####step3
+## step3 kallisto
+# kallisto github:
+https://github.com/pachterlab/kallisto 
 
 ##in step 3 we want to appply kallisto tCDSo quantify the abundances of transcripts from each CDS and make a table in log fike to show the minimum , median , mean , ans max for each results in .tsv table as kallisto output file
 for doin kallisto first of all need to make kallisto index 
@@ -96,6 +106,8 @@ then kalisto code which is
 
 
           kallisto index -i index.idx refrence_transcriptome.fa.gz file
+          kallisto quant -i {index_file} -o {output_sample_dir} -b 100 -t 4 
+          {sample_file1} {sample_file2}
 
 
           
@@ -114,7 +126,24 @@ kallisto quant -i {index_file} -o {output_sample_dir} -b 100 -t 4 {sample_file1}
 
 ##Nest step is doingsome statistics by R
 
-##Sleuth  step4
+## Sleuth  step4
+# sleuth github
+https://github.com/pachterlab/sleuth
+
+# Installtion 
+
+
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
+BiocManager::install("devtools")    # only if devtools not yet installed
+BiocManager::install("pachterlab/sleuth")
+
+
+library('sleuth')
+
+
 
 sleuth is a R package that uses the kallisto outputto do statistical test to check the expression
 
@@ -124,7 +153,7 @@ first need t define the path for input and output the need to define the path fo
 
 in this case i ask to make a table in the log file to show details about the transcript(FDR < 0.05)
 
-##Bowtie2
+## Bowtie2
 to figure out which starins are most similar to these patient samples, we should use Bowtie2
 we do not want to assembly entire genome.
 
@@ -146,12 +175,12 @@ filtered_fastq2 = os.path.join(filtered_fastq_dir, f"{sample}_filtered_2.fastq")
 then write a code to make a table that shows read pairs bfore and ater Bowtie2 corresponding to days after infection
 
 
-###step5 
+## step5 Spades
 in this step I use SPades to for assembly ans analysis of sequencing data.
 Spades is bioinfrmatics tools that revieve the fastq 1 and fastq 2 and do assembly
 
 
-####last step is BLAST
+## BLAST
 
 
 
