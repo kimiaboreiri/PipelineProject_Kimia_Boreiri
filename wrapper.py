@@ -247,10 +247,16 @@ for sample, (donor, timepoint) in samples.items():
     filtered_fastq1 = os.path.join(filtered_fastq_dir, f"{sample}_filtered_1.fastq")
     filtered_fastq2 = os.path.join(filtered_fastq_dir, f"{sample}_filtered_2.fastq")
 
-    print(f"Extracting FASTQ reads for {sample}...")
-    subprocess.run(["samtools", "sort", "-n", "-o", output_mapped_bam, output_mapped_bam])  # Sort BAM
-    subprocess.run(["samtools", "fastq", "-1", filtered_fastq1, "-2", filtered_fastq2, output_mapped_bam])
-
+    print(f"Extracting FASTQ reads for {sample}...")  ##since I got error about the different length of fastq files from Bowtie2
+    subprocess.run([                                  ##I used -s /dev/null and -0/dev/null to make sure the fastq files have the same length
+    "samtools", "fastq",                              ##but I am not sure this would be a good option 
+    "-n",  # Ensures read names match in FASTQ files  ##after this changes spades didn't get error about the differences between length    "-F", "12",  # Ensures only properly paired reads are included
+    "-1", filtered_fastq1,
+    "-2", filtered_fastq2,
+    "-0", "/dev/null",  # Discard unpaired reads
+    "-s", "/dev/null",  # Discard singletons
+    output_mapped_bam
+])
     ## Count Reads Before and After Filtering
     total_reads = int(subprocess.check_output(["samtools", "view", "-c", output_sam]).strip())
     mapped_reads = int(subprocess.check_output(["samtools", "view", "-c", output_mapped_bam]).strip())
@@ -304,10 +310,10 @@ for donor, samples in donors.items():
 
 print("SPAdes processing completed.")
 
-
 ##define path for blast
 base_dir = os.path.expanduser("~/PipelineProject_Kimia_Boreiri/output")
 blast_db_dir = os.path.join(base_dir, "blast_db")  # Directory for BLAST dataset
+spades_output_dir = os.path.join(base_dir,"spades_output") ##spades output folder
 os.makedirs(blast_db_dir, exist_ok=True)  # make sure if directory exist
 
 
@@ -316,19 +322,40 @@ file_name = os.path.join(spades_output_dir,"Donor_1", "contigs.fasta")
 db_name = os.path.join(blast_db_dir, "blast_results")
 log_file = os.path.join(base_dir, "PipelineProject.log")  #log file
 
-makeblast_command = f"makeblastdb -in {file_name} -out {db_name} -title {db_name} -dbtype nucl"
+#define contig file for each donor
+donors = {
+    "Donor_1" : os.path.join(spades_output_dir, "Donor_1", "contigs.fasta"),
+    "Donor_3" : os.path.join(spades_output_dir, "Donor_3","contigs.fasta"),
+}
 
+##making blast database
+for donor, contig_file in donors.items():
+    
+    makeblast_command = f"makeblastdb -in {contig_file} -out {blast_db_dir}/{donor}_db -dbtype nucl"
+    subprocess.run(makeblast_command, shell=True, check=True)
 
-
-subprocess.run(makeblast_command, shell=True, check=True)
-print("BLAST database created successfully.")
-
-    # Log success
-log_file = os.path.join(base_dir, "PipelineProject.log")
 with open(log_file, "a") as log:
-    log.write("\n## BLAST Database Created Successfully ##\n")
+    log.write('\n ##Blast result##\n')
+
+for donor, contig_file in donors.items():
+    blast_output_file = os.path.join(blast_db_dir, f"{donor}_blast_output.txt")
+
+##then run blast 
+blast_command = f"blastn -query {contig_file} -db {blast_db_dir}/{donor}_db -out {blast_output_file} -outfmt '6 sacc pident length qstart qend sstart send bitscore evalue stitle' -max_target_seqs 10"
+
+subprocess.run(blast_command, shell=True)
 
 
+ ##add result to the log file   
+with open(blast_output_file,'r') as blast_results, open(log_file, 'a') as log:
+    log.write(f"\n{donor}:\n") ##donor name
+    log.write("sacc\tpident\tlengh\tqstar\tqend\tsstar\tsend\tbitscore\tevalue\tstitle\n")
+    
+
+    top_10_hits = blast_results.readlines()[:10] #limited to hit 10
+    log.writelines(top_10_hits)  
+    for line in blast_results.readlines():
+        log.write(line)
 
 
 
