@@ -44,3 +44,21 @@ Donor 3 (6dpi) had 4953778 read pairs before Bowtie2 filtering and 2236559 read 
 SPAdes command for Donor_1: spades.py --only-assembler -k 77 -o /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/spades_output/Donor_1 -1 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660030_filtered_1.fastq -2 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660030_filtered_2.fastq -1 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660033_filtered_1.fastq -2 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660033_filtered_2.fastq
 
 SPAdes command for Donor_3: spades.py --only-assembler -k 77 -o /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/spades_output/Donor_3 -1 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660044_filtered_1.fastq -2 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660044_filtered_2.fastq -1 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660045_filtered_1.fastq -2 /home/2025/kboreiri/PipelineProject_Kimia_Boreiri/output/filtered_fastq/SRR5660045_filtered_2.fastq
+
+##Blast result##
+
+Donor_3:
+sacc	pident	lengh	qstar	qend	sstar	send	bitscore	evalue	stitle
+NODE_1_length_6754_cov_695.615396	100.000	6754	1	6754	1	6754	12473	0.0	NODE_1_length_6754_cov_695.615396
+NODE_189_length_233_cov_1.942308	98.712	233	1809	2041	233	1	414	1.74e-116	NODE_189_length_233_cov_1.942308
+NODE_191_length_231_cov_3.103896	98.701	231	3915	4145	231	1	411	2.25e-115	NODE_191_length_231_cov_3.103896
+NODE_8_length_2958_cov_208.880597	100.000	36	6719	6754	2958	2923	67.6	5.61e-12	NODE_8_length_2958_cov_208.880597
+NODE_2_length_5283_cov_1148.469650	100.000	5283	1	5283	1	5283	9756	0.0	NODE_2_length_5283_cov_1148.469650
+NODE_141_length_292_cov_1.976744	98.630	292	1448	1739	292	1	518	1.01e-147	NODE_141_length_292_cov_1.976744
+NODE_165_length_252_cov_2.480000	98.810	252	1118	1369	252	1	449	3.73e-127	NODE_165_length_252_cov_2.480000
+NODE_174_length_245_cov_1.803571	98.776	245	1108	1352	1	245	436	2.90e-123	NODE_174_length_245_cov_1.803571
+NODE_170_length_248_cov_3.292398	98.387	248	3201	3448	1	248	436	2.90e-123	NODE_170_length_248_cov_3.292398
+NODE_3_length_4123_cov_282.853188	100.000	4123	1	4123	1	4123	7614	0.0	NODE_3_length_4123_cov_282.853188
+
+
+
