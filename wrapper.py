@@ -341,6 +341,8 @@ for donor, contig_file in donors.items():
     blast_output_file = os.path.join(blast_db_dir, f"{donor}_blast_output.txt")
 
 ##then run blast 
+##out {blast_output_file} -outfmt '6 sacc pident length qstart qend sstart send bitscore evalue stitle' -max_target_seqs 10"
+##this lines used to formate and  filter Blast result, formate the blast output for making table in ,log file
 blast_command = f"blastn -query {contig_file} -db {blast_db_dir}/{donor}_db -out {blast_output_file} -outfmt '6 sacc pident length qstart qend sstart send bitscore evalue stitle' -max_target_seqs 10"
 
 subprocess.run(blast_command, shell=True)
@@ -350,7 +352,8 @@ subprocess.run(blast_command, shell=True)
 with open(blast_output_file,'r') as blast_results, open(log_file, 'a') as log:
     log.write(f"\n{donor}:\n") ##donor name
     log.write("sacc\tpident\tlengh\tqstar\tqend\tsstar\tsend\tbitscore\tevalue\tstitle\n")
-    
+
+  ##I can not figure out why it just shows table for Doman3 and does not show the table for Donor1
 
     top_10_hits = blast_results.readlines()[:10] #limited to hit 10
     log.writelines(top_10_hits)  
